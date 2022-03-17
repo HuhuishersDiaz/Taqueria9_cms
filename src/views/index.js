@@ -22,6 +22,7 @@ import ProgressBars from './elements/ProgressBars';
 import PaginationPage from './elements/Pagination';
 import ErrorPage from './pages/404';
 import Categories from './pages/Categories';
+import Login from './pages/Login';
 
 
 // See React Router documentation for details: https://reacttraining.com/react-router/web/api/Route
@@ -35,6 +36,11 @@ const pageList = [
     name: 'Categorias',
     path: '/pages/categories',
     component: Categories,
+  },
+  {
+    name: 'Login',
+    path: '/login',
+    component: Login,
   },
   {
     name: 'Buttons',
