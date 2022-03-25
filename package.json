@@ -11,6 +11,8 @@
     "bootstrap": "^4.3.1",
     "chart.js": "^2.7.3",
     "classnames": "^2.2.6",
+    "google-map-react": "^2.1.10",
+    "google-maps-react": "^2.0.6",
     "node-sass": "^4.11.0",
     "react": "^16.8.1",
     "react-chartjs-2": "2.6.4",

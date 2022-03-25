@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { Button, Form, FormGroup, Label, Input, FormText, Col, Row, Card, CardBody, CardHeader,CardFooter } from 'reactstrap';
+import DashboardLayout from '../../layouts/DashboardLayout';
+import { BrowserRouter as Router, withRouter, Route,Redirect,Switch } from 'react-router-dom';
 
 const cardStyle = {
   width:"50%",
@@ -8,20 +10,24 @@ const cardStyle = {
   color:'blue',
 }
 
+const appStyle = {
+}
+
 const LoginPage = () => {
   
   async function submitForm() {
-    
+    alert("submit form!!!");
+    return <Redirect to={{ pathname: '/home', state: {flag: true}}} />
   }
   
   return (
-    <div>
+    <div style={appStyle}>
     <Card style={cardStyle}>
     <CardHeader>
       CMS
     </CardHeader>
     </Card>
-      <Form inline>
+      <Form onSubmit={submitForm}>
   <FormGroup className="mb-2 me-sm-2 mb-sm-0">
     <Label
       className="me-sm-2"
@@ -58,4 +64,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default withRouter(LoginPage);

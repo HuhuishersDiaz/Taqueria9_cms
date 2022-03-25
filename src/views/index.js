@@ -23,6 +23,10 @@ import PaginationPage from './elements/Pagination';
 import ErrorPage from './pages/404';
 import Categories from './pages/Categories';
 import Login from './pages/Login';
+import Drivers from './pages/Drivers';
+import Products from './pages/Products';
+import Orders from './pages/Orders';
+import Maps from './pages/Maps';
 
 
 // See React Router documentation for details: https://reacttraining.com/react-router/web/api/Route
@@ -33,15 +37,36 @@ const pageList = [
     component: Dashboard,
   },
   {
+    name: 'Login',
+    path: '/login',
+    component: Login,
+  },
+  {
     name: 'Categorias',
     path: '/pages/categories',
     component: Categories,
   },
   {
-    name: 'Login',
-    path: '/login',
-    component: Login,
+    name: 'Productos',
+    path: '/pages/products',
+    component: Products,
   },
+  {
+    name: 'Ordenes',
+    path: '/pages/orders',
+    component: Orders,
+  },
+  {
+    name: 'Repartidores',
+    path: '/pages/drivers',
+    component: Drivers,
+  },
+  {
+    name: 'Mapa',
+    path: '/pages/maps',
+    component: Maps,
+  },
+
   {
     name: 'Buttons',
     path: '/elements/buttons',

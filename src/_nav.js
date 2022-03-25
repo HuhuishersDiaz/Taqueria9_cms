@@ -21,6 +21,17 @@ export default {
       icon: 'Layers',
     },
     {
+      name: 'Repartidores',
+      url: '/pages/drivers',
+      icon: 'Layers',
+    },
+
+    {
+      name: 'Mapa',
+      url: '/pages/maps',
+      icon: 'Layers',
+    },
+    {
       name: 'Reportes',
       url: '/pages/reports',
       icon: 'Layers',

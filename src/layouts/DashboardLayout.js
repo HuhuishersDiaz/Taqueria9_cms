@@ -56,19 +56,20 @@ export default class DashboardLayout extends Component {
   render() {
     const { sidebarCollapsed } = this.state;
     const sidebarCollapsedClass = sidebarCollapsed ? 'side-menu-collapsed' : '';
+    const flag = true;
     return (
       <ContextProviders>
         <div className={`app ${sidebarCollapsedClass}`}>
           <PageAlert />
           <div className="app-body">
-            <SidebarNav
+             <SidebarNav
               nav={nav}
               logo={Logo}
               logoText="CMS"
               isSidebarCollapsed={sidebarCollapsed}
               toggleSidebar={this.toggleSideCollapse}
               {...this.props}
-            />
+            /> 
             <Page>
               <Header
                 toggleSidebar={this.toggleSideCollapse}
@@ -82,8 +83,11 @@ export default class DashboardLayout extends Component {
                 <Switch>
                   {routes.map((page, key) => (
                     <Route path={page.path} component={page.component} key={key} />
-                  ))}
-                  <Redirect from="/" to="/home" />
+                  ))
+                  }
+                 
+                <Redirect from="/" to="/home" />
+                  
                 </Switch>
               </PageContent>
             </Page>
@@ -122,7 +126,7 @@ function HeaderNav() {
           </Button>
         </form>
       </NavItem>
-      <UncontrolledDropdown nav inNavbar>
+    {/*   <UncontrolledDropdown nav inNavbar>
         <DropdownToggle nav caret>
           New
         </DropdownToggle>
@@ -145,7 +149,7 @@ function HeaderNav() {
           <DropdownItem divider />
           <DropdownItem>Reset</DropdownItem>
         </DropdownMenu>
-      </UncontrolledDropdown>
+      </UncontrolledDropdown> */}
     </React.Fragment>
   );
 }
