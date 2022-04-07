@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import DashboardLayout from './layouts/DashboardLayout';
-import Login from './views/pages/Login';
+import LoginLayout from './layouts/LoginLayout';
 import './vibe/scss/styles.scss';
 
 export default function App(props) {
@@ -10,10 +10,10 @@ export default function App(props) {
   }, []);
   const flag = false;
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route component={DashboardLayout} />
-      </Switch>
-    </BrowserRouter>
+    <Router>
+    <Switch>
+      <Route path="/" component={DashboardLayout} />
+        </Switch>
+    </Router>
   );
 }

@@ -11,6 +11,16 @@ export default {
       icon: 'Layers',
     },
     {
+      name: 'Banners',
+      url: '/pages/banners',
+      icon: 'Layers',
+    },
+    {
+      name: 'Notificaciones',
+      url: '/pages/pushnotif',
+      icon: 'Layers',
+    },
+    {
       name: 'Productos',
       url: '/pages/products',
       icon: 'Layers'

@@ -27,6 +27,8 @@ import Drivers from './pages/Drivers';
 import Products from './pages/Products';
 import Orders from './pages/Orders';
 import Maps from './pages/Maps';
+import Banners from './pages/Banners';
+import Pushnotif from './pages/Pushnotif';
 
 
 // See React Router documentation for details: https://reacttraining.com/react-router/web/api/Route
@@ -45,6 +47,17 @@ const pageList = [
     name: 'Categorias',
     path: '/pages/categories',
     component: Categories,
+  },
+  {
+    name: 'Banners',
+    path: '/pages/banners',
+    component: Banners,
+  },
+  
+  {
+    name: 'Notificaciones',
+    path: '/pages/pushnotif',
+    component: Pushnotif,
   },
   {
     name: 'Productos',

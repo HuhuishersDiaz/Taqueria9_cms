@@ -24,7 +24,7 @@ import axios from 'axios';
 
 //const [categories,setCateg] = useState([]);
 
-const Categories = () => {
+const Pushnotif = () => {
   //onLoad();
   const [code, setCode] = useState("");
   const [name, setName] = useState("");
@@ -63,7 +63,7 @@ const Categories = () => {
       width:80
     },
     {
-      Header: "Categoria",
+      Header: "Banner",
       accessor: "name",
       width:200
     },
@@ -78,7 +78,7 @@ const Categories = () => {
       width:50,
       Cell: ({ cell: { value } }) => (
       <img
-        src={'http://cms.etcmediasolutions.com/uploads/'+value}
+        src={'http://18.217.43.19/uploads/banners/'+value}
         alt={value}
         width={60}
         onClick={() => showPicture({value})}
@@ -101,7 +101,7 @@ const Categories = () => {
   
   useEffect(()=>{
   async function getData(){
-  await axios.get("http://cms.etcmediasolutions.com:3000/categories/all")
+  await axios.get("http://18.217.43.19:3000/banners/all")
         .then(res => {
           setData(res.data);
           console.log(res.data);
@@ -129,13 +129,13 @@ const Categories = () => {
         console.log(file);
     
      axios.all([
-        axios.post("http://cms.etcmediasolutions.com:3000/photos/upload",
+        axios.post("http://18.217.43.19:3000/photos/upload",
         formData),
-         axios.post("http://cms.etcmediasolutions.com:3000/categories/create",{
-            code: code,
-         name: name,
-         details: details,
-         image: file.name,
+         axios.post("http://18.217.43.19:3000/banners/create",{
+          code: code,
+          name: name,
+          details: details,
+          image: file.name,
          })
        ])
        .then(axios.spread((data1,data2) => {
@@ -155,12 +155,12 @@ const Categories = () => {
   
   return (
     <div>
-    {/* Modal picture category*/}
+    {/* Modal picture banner*/}
      <Modal isOpen={pics} toggle={picsClose} style={{width:800,height:500}}>
-       <ModalHeader style={{backgroundColor:"#1d1594", color:"#ffffff"}}>Imagen Categoria</ModalHeader>
+       <ModalHeader style={{backgroundColor:"#1d1594", color:"#ffffff"}}>Imagen Banner</ModalHeader>
           <ModalBody style={{alignSelf:'center'}}>
              <img style={{padding:10}}
-              src={'http://cms.etcmediasolutions.com/uploads/' + urlPic}/>
+              src={'http://18.217.43.19/uploads/banners/' + urlPic}/>
           </ModalBody>
        <ModalFooter>
        <Button color="primary" >Cambiar Imagen</Button> 
@@ -173,7 +173,7 @@ const Categories = () => {
          <Row>
           <Col xs={4}>
             <Card>
-              <CardBody>Listado de Categorias</CardBody>
+              <CardBody>Listado de Banners</CardBody>
             </Card>
           </Col>
           <Col xs={4}>
@@ -188,17 +188,17 @@ const Categories = () => {
              
                <Modal isOpen={show} toggle={handleClose} modalTransition={{timeout:500}}>
   <ModalHeader>
-    Datos de la nueva categoria
+    Datos del nuevo banner
   </ModalHeader>
   <ModalBody>
    <Form onSubmit={submitForm}>
         <FormGroup>
           <Label for="code">Codigo</Label>
-          <Input type="text" name="code" id="code" value={code} onChange={(e) => setCode(e.target.value)} placeholder="codigo de la categoria" />
+          <Input type="text" name="code" id="code" value={code} onChange={(e) => setCode(e.target.value)} placeholder="codigo del banner" />
         </FormGroup>
         <FormGroup>
           <Label for="name">Nombre</Label>
-          <Input type="text" name="name" id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="nombre de la categoria" />
+          <Input type="text" name="name" id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="nombre del banner" />
         </FormGroup>
         <FormGroup>
           <Label for="details">Descripcion</Label>
@@ -206,7 +206,7 @@ const Categories = () => {
         </FormGroup>
         <FormGroup>
           <Label for="categoryFile">Imagen</Label>
-          <Input type="file" accept=".jpg" onChange={(ev) => onFileChange(ev)} />
+          <Input type="file" onChange={(ev) => onFileChange(ev)} />
        </FormGroup>
         <Button color="warning">Guardar Informacion</Button>
       </Form>
@@ -252,4 +252,4 @@ const Categories = () => {
   );
 };
 
-export default Categories;
+export default Pushnotif;

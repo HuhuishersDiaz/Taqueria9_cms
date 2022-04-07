@@ -1,27 +1,40 @@
-import React, {useState, useEffect} from 'react';
+import React, { Component } from 'react';
 import { Button, Form, FormGroup, Label, Input, FormText, Col, Row, Card, CardBody, CardHeader,CardFooter } from 'reactstrap';
-import DashboardLayout from '../../layouts/DashboardLayout';
 import { BrowserRouter as Router, withRouter, Route,Redirect,Switch } from 'react-router-dom';
+import nav from '../_nav';
+import routes from '../views';
+import ContextProviders from '../vibe/components/utilities/ContextProviders';
+import handleKeyAccessibility, { handleClickAccessibility } from '../vibe/helpers/handleTabAccessibility';
+
 
 const cardStyle = {
-  width:"50%",
-  textAlign:'center',
-  margin:'0 auto',
-  color:'blue',
+    width:"50%",
+    textAlign:'center',
+    margin:'0 auto',
+    color: 'blue',
 }
-
 const appStyle = {
+    
 }
 
-const LoginPage = () => {
-  
-  async function submitForm() {
-    alert("submit form!!!");
-    return <Redirect to={{ pathname: 'http://cms.etcmediasolutions.com/', state: {flag: true}}} />
-  }
-  
-  return (
-    <div style={appStyle}>
+export default class LoginLayout extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            
+        };
+    }
+    
+    
+    render() {
+    
+    async function submitForm() {
+       
+    window.location.href = "http://cms.etcmediasolutions.com";
+    }    
+        
+        return (
+        <div style={appStyle}>
     <Card style={cardStyle}>
     <CardHeader>
       CMS
@@ -61,7 +74,6 @@ const LoginPage = () => {
   </Button>
 </Form>
     </div>
-  );
-};
-
-export default withRouter(LoginPage);
+        )
+    }
+}

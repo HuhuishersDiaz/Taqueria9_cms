@@ -86,6 +86,7 @@ export default class DashboardLayout extends Component {
                   ))
                   }
                  
+                {/* <Redirect from="/" to="/home" /> */}
                 <Redirect from="/" to="/home" />
                   
                 </Switch>
