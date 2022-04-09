@@ -5,7 +5,45 @@ export default {
       url: '/widgets',
       icon: 'Home',
     },
-    {
+     {
+      name: 'Catalogos',
+      icon: 'Layers',
+      children: [
+        {
+          name:'Categorias',
+          url:'/pages/categories',
+        },
+        {
+          name:'Productos',
+          url:'/pages/products',
+        },
+        {
+          name:'Banners',
+          url:'/pages/banners',
+        },
+        {
+          name:'Notificaciones',
+          url:'/pages/pushnotif',
+        },
+        {
+          name:'Promociones',
+          url:'/pages/promos',
+        },
+        {
+          name:'Ocaciones',
+          url:'/pages/motions',
+        },
+        {
+          name:'Cupones',
+          url:'/pages/coupons',
+        },
+        {
+          name:'Sucursales',
+          url:'/pages/stores',
+        }
+        ]
+    },
+   /* {
       name: 'Categorias',
       url: '/pages/categories',
       icon: 'Layers',
@@ -29,26 +67,40 @@ export default {
       name: 'Perdidos',
       url: '/pages/orders',
       icon: 'Layers',
+    },*/
+    
+    
+    {
+      name: 'Delivery',
+      icon: 'Layers',
+      children: [
+        {
+          name:'Repartidores',
+          url:'/pages/drivers',
+        },
+        {
+          name:'Pedidos',
+          url:'/pages/orders',
+        }
+      ]
     },
     {
-      name: 'Repartidores',
-      url: '/pages/drivers',
+      name: 'Configuracion',
       icon: 'Layers',
-    },
-
-    {
-      name: 'Mapa',
-      url: '/pages/maps',
-      icon: 'Layers',
+      children: [
+        {
+          name:'Mapa',
+          url:'/pages/maps',
+        },
+        {
+          name:'Usuarios',
+          url:'/pages/users',
+        }
+        ]
     },
     {
       name: 'Reportes',
       url: '/pages/reports',
-      icon: 'Layers',
-    },
-    {
-      name: 'Configuracion',
-      url: '/pages/settings',
       icon: 'Layers',
     },
     {
