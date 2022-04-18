@@ -21,15 +21,21 @@ import {
 } from 'reactstrap';
 import Table from "./widgets/Table";
 import axios from 'axios';
+import CurrencyInput from 'react-currency-input';
 
 //const [categories,setCateg] = useState([]);
 
 const Products = () => {
+  
   //onLoad();
   const [code, setCode] = useState("");
   const [name, setName] = useState("");
   const [details, setDetails] = useState("");
+  const [price, setPrice] = useState("");
   const [upload, setUpload] = useState(false);
+  const [category, setCategory] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [amount, setAmount] = useState("0.00");
   /* global File */
   let file = File;
   let img = "image.png";
@@ -44,6 +50,14 @@ const Products = () => {
   const [data, setData] = useState([]);
   const [dataSize, setDataSize] = useState(0);
   const [loadingData, setLoadingData] = useState(true);
+  
+  const handleChange = (event) => {
+    setCategory(event.target.value);
+  }
+  
+  const handleChangeCurrency = (event, maskedvalue, floatvalue) => {
+    setAmount(maskedvalue);
+  }
   
   const showPicture = (v) => {
     console.log(v.value);
@@ -63,7 +77,7 @@ const Products = () => {
       width:80
     },
     {
-      Header: "Categoria",
+      Header: "Producto",
       accessor: "name",
       width:200
     },
@@ -72,13 +86,23 @@ const Products = () => {
       accessor: "details",
       width:300,
     },
+     {
+      Header: "Categoria",
+      accessor: "category",
+      width:200,
+    },
+     {
+      Header: "Precio",
+      accessor: "price",
+      width:100,
+    },
     {
       Header: "Imagen",
       accessor: "image",
       width:50,
       Cell: ({ cell: { value } }) => (
       <img
-        src={'http://ec2-3-87-67-179.compute-1.amazonaws.com:3000/uploads/'+value}
+        src={'http://cms.etcmediasolutions.com/uploads/'+value}
         alt={value}
         width={60}
         onClick={() => showPicture({value})}
@@ -100,8 +124,17 @@ const Products = () => {
   ]);
   
   useEffect(()=>{
+  
+  async function getCategories(){
+    await axios.get("http://cms.etcmediasolutions.com:3000/categories/all")
+          .then(res => {
+            setCategories(res.data);
+            console.log(res.data);
+          });
+  } 
+  
   async function getData(){
-  await axios.get("http://ec2-3-87-67-179.compute-1.amazonaws.com:3000/categories/all")
+  await axios.get("http://cms.etcmediasolutions.com:3000/products/all")
         .then(res => {
           setData(res.data);
           console.log(res.data);
@@ -111,6 +144,7 @@ const Products = () => {
   }
   if(loadingData) {
     getData();
+    getCategories();
   }
   }, []);
 
@@ -129,12 +163,14 @@ const Products = () => {
         console.log(file);
     
      axios.all([
-        axios.post("http://ec2-3-87-67-179.compute-1.amazonaws.com:3000/photos/upload",
+        axios.post("http://cms.etcmediasolutions.com:3000/photos/upload",
         formData),
-         axios.post("http://ec2-3-87-67-179.compute-1.amazonaws.com:3000/categories/create",{
+         axios.post("http://cms.etcmediasolutions.com:3000/products/create",{
+           category: category,
             code: code,
          name: name,
          details: details,
+         price:amount,
          image: file.name,
          })
        ])
@@ -160,7 +196,7 @@ const Products = () => {
        <ModalHeader style={{backgroundColor:"#1d1594", color:"#ffffff"}}>Imagen Producto</ModalHeader>
           <ModalBody style={{alignSelf:'center'}}>
              <img style={{padding:10}}
-              src={'http://ec2-3-87-67-179.compute-1.amazonaws.com:3000/uploads/' + urlPic}/>
+              src={'http://cms.etcmediasolutions.com/uploads/' + urlPic}/>
           </ModalBody>
        <ModalFooter>
        <Button color="primary" >Cambiar Imagen</Button> 
@@ -188,21 +224,34 @@ const Products = () => {
              
                <Modal isOpen={show} toggle={handleClose} modalTransition={{timeout:500}}>
   <ModalHeader>
-    Datos de la nueva categoria
+    Datos del nuevo producto
   </ModalHeader>
   <ModalBody>
    <Form onSubmit={submitForm}>
         <FormGroup>
+        <select style={{width:200}} value={category} onChange={handleChange}>
+          <label>Categoria</label><br></br>
+          {
+           categories.map(category => 
+            <option value={category.name}>{category.name}</option>
+           )}
+        </select>
+        </FormGroup>
+        <FormGroup>
           <Label for="code">Codigo</Label>
-          <Input type="text" name="code" id="code" value={code} onChange={(e) => setCode(e.target.value)} placeholder="codigo de la categoria" />
+          <Input type="text" name="code" id="code" value={code} onChange={(e) => setCode(e.target.value)} placeholder="codigo del producto" />
         </FormGroup>
         <FormGroup>
           <Label for="name">Nombre</Label>
-          <Input type="text" name="name" id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="nombre de la categoria" />
+          <Input type="text" name="name" id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="nombre del producto" />
         </FormGroup>
         <FormGroup>
           <Label for="details">Descripcion</Label>
           <Input type="textarea" name="details" id="details" value={details} onChange={(e) => setDetails(e.target.value)} />
+        </FormGroup>
+        <FormGroup>
+          <Label for="price">Precio</Label>
+          <CurrencyInput prefix="$" value={amount} onChange={handleChangeCurrency} />
         </FormGroup>
         <FormGroup>
           <Label for="categoryFile">Imagen</Label>
@@ -253,3 +302,4 @@ const Products = () => {
 };
 
 export default Products;
+
