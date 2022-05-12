@@ -25,20 +25,14 @@ import Categories from './pages/Categories';
 import Login from './pages/Login';
 import Drivers from './pages/Drivers';
 import Products from './pages/Products';
-<<<<<<< HEAD
-=======
 import Complements from './pages/Complements';
->>>>>>> master
 import Orders from './pages/Orders';
 import Maps from './pages/Maps';
 import Banners from './pages/Banners';
 import Pushnotif from './pages/Pushnotif';
-<<<<<<< HEAD
-=======
 import Promos from './pages/Promos';
 import Occasions from './pages/Occasions';
 
->>>>>>> master
 
 // See React Router documentation for details: https://reacttraining.com/react-router/web/api/Route
 const pageList = [
@@ -62,11 +56,7 @@ const pageList = [
     path: '/pages/banners',
     component: Banners,
   },
-<<<<<<< HEAD
-
-=======
   
->>>>>>> master
   {
     name: 'Notificaciones',
     path: '/pages/pushnotif',
@@ -78,8 +68,6 @@ const pageList = [
     component: Products,
   },
   {
-<<<<<<< HEAD
-=======
     name: 'Complementos',
     path: '/pages/complements',
     component: Complements,
@@ -95,7 +83,6 @@ const pageList = [
     component: Occasions,
   },
   {
->>>>>>> master
     name: 'Ordenes',
     path: '/pages/orders',
     component: Orders,
