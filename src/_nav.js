@@ -5,45 +5,49 @@ export default {
       url: '/widgets',
       icon: 'Home',
     },
-     {
+    {
       name: 'Catalogos',
       icon: 'Layers',
       children: [
         {
-          name:'Categorias',
-          url:'/pages/categories',
+          name: 'Categorias OK',
+          url: '/pages/categories',
         },
         {
-          name:'Productos',
-          url:'/pages/products',
+          name: 'Productos OK',
+          url: '/pages/products',
         },
         {
-          name:'Banners',
-          url:'/pages/banners',
+          name: 'Complementos OK',
+          url: '/pages/complements',
         },
         {
-          name:'Notificaciones',
-          url:'/pages/pushnotif',
+          name: 'Banners OK',
+          url: '/pages/banners',
+        },
+        
+        {
+          name: 'Promociones OK',
+          url: '/pages/promos',
         },
         {
-          name:'Promociones',
-          url:'/pages/promos',
+          name: 'Ocaciones OK',
+          url: '/pages/occasions',
         },
         {
-          name:'Ocaciones',
-          url:'/pages/motions',
+          name: 'Cupones',
+          url: '/pages/coupons',
+        },{
+          name: 'Notificaciones',
+          url: '/pages/pushnotif',
         },
         {
-          name:'Cupones',
-          url:'/pages/coupons',
+          name: 'Sucursales',
+          url: '/pages/stores',
         },
-        {
-          name:'Sucursales',
-          url:'/pages/stores',
-        }
-        ]
+      ],
     },
-   /* {
+    /* {
       name: 'Categorias',
       url: '/pages/categories',
       icon: 'Layers',
@@ -68,13 +72,12 @@ export default {
       url: '/pages/orders',
       icon: 'Layers',
     },*/
-    
-    
     {
       name: 'Delivery',
       icon: 'Layers',
       children: [
         {
+<<<<<<< HEAD
           name:'Repartidores',
           url:'/pages/drivers',
         },
@@ -83,12 +86,23 @@ export default {
           url:'/pages/orders',
         }
       ]
+=======
+          name: 'Repartidores',
+          url: '/pages/drivers',
+        },
+        {
+          name: 'Pedidos',
+          url: '/pages/orders',
+        },
+      ],
+>>>>>>> master
     },
     {
       name: 'Configuracion',
       icon: 'Layers',
       children: [
         {
+<<<<<<< HEAD
           name:'Mapa',
           url:'/pages/maps',
         },
@@ -97,6 +111,16 @@ export default {
           url:'/pages/users',
         }
         ]
+=======
+          name: 'Mapa',
+          url: '/pages/maps',
+        },
+        {
+          name: 'Usuarios',
+          url: '/pages/users',
+        },
+      ],
+>>>>>>> master
     },
     {
       name: 'Reportes',
@@ -195,7 +219,11 @@ export default {
           name: 'Facturacion',
           url: '/apps/invoice',
         },
+<<<<<<< HEAD
      /*   {
+=======
+        /*   {
+>>>>>>> master
           name: 'Activity Feed',
           url: '/apps/feed',
         },
