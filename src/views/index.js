@@ -30,7 +30,6 @@ import Maps from './pages/Maps';
 import Banners from './pages/Banners';
 import Pushnotif from './pages/Pushnotif';
 
-
 // See React Router documentation for details: https://reacttraining.com/react-router/web/api/Route
 const pageList = [
   {
@@ -53,7 +52,7 @@ const pageList = [
     path: '/pages/banners',
     component: Banners,
   },
-  
+
   {
     name: 'Notificaciones',
     path: '/pages/pushnotif',
