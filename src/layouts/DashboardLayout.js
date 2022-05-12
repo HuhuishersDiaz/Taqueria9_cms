@@ -62,22 +62,14 @@ export default class DashboardLayout extends Component {
         <div className={`app ${sidebarCollapsedClass}`}>
           <PageAlert />
           <div className="app-body">
-<<<<<<< HEAD
-             <SidebarNav
-=======
             <SidebarNav
->>>>>>> master
               nav={nav}
               logo={Logo}
               logoText="CMS"
               isSidebarCollapsed={sidebarCollapsed}
               toggleSidebar={this.toggleSideCollapse}
               {...this.props}
-<<<<<<< HEAD
-            /> 
-=======
             />
->>>>>>> master
             <Page>
               <Header
                 toggleSidebar={this.toggleSideCollapse}
@@ -91,19 +83,10 @@ export default class DashboardLayout extends Component {
                 <Switch>
                   {routes.map((page, key) => (
                     <Route path={page.path} component={page.component} key={key} />
-<<<<<<< HEAD
-                  ))
-                  }
-                 
-                {/* <Redirect from="/" to="/home" /> */}
-                <Redirect from="/" to="/home" />
-                  
-=======
                   ))}
 
                   {/* <Redirect from="/" to="/home" /> */}
                   <Redirect from="/" to="/home" />
->>>>>>> master
                 </Switch>
               </PageContent>
             </Page>
@@ -142,11 +125,7 @@ function HeaderNav() {
           </Button>
         </form>
       </NavItem>
-<<<<<<< HEAD
-    {/*   <UncontrolledDropdown nav inNavbar>
-=======
       {/*   <UncontrolledDropdown nav inNavbar>
->>>>>>> master
         <DropdownToggle nav caret>
           New
         </DropdownToggle>

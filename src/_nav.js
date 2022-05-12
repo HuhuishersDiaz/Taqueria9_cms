@@ -25,7 +25,7 @@ export default {
           name: 'Banners OK',
           url: '/pages/banners',
         },
-        
+
         {
           name: 'Promociones OK',
           url: '/pages/promos',
@@ -37,7 +37,8 @@ export default {
         {
           name: 'Cupones',
           url: '/pages/coupons',
-        },{
+        },
+        {
           name: 'Notificaciones',
           url: '/pages/pushnotif',
         },
@@ -77,16 +78,6 @@ export default {
       icon: 'Layers',
       children: [
         {
-<<<<<<< HEAD
-          name:'Repartidores',
-          url:'/pages/drivers',
-        },
-        {
-          name:'Pedidos',
-          url:'/pages/orders',
-        }
-      ]
-=======
           name: 'Repartidores',
           url: '/pages/drivers',
         },
@@ -95,23 +86,12 @@ export default {
           url: '/pages/orders',
         },
       ],
->>>>>>> master
     },
     {
       name: 'Configuracion',
       icon: 'Layers',
       children: [
         {
-<<<<<<< HEAD
-          name:'Mapa',
-          url:'/pages/maps',
-        },
-        {
-          name:'Usuarios',
-          url:'/pages/users',
-        }
-        ]
-=======
           name: 'Mapa',
           url: '/pages/maps',
         },
@@ -120,7 +100,6 @@ export default {
           url: '/pages/users',
         },
       ],
->>>>>>> master
     },
     {
       name: 'Reportes',
@@ -219,11 +198,7 @@ export default {
           name: 'Facturacion',
           url: '/apps/invoice',
         },
-<<<<<<< HEAD
-     /*   {
-=======
         /*   {
->>>>>>> master
           name: 'Activity Feed',
           url: '/apps/feed',
         },
