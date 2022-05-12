@@ -36,7 +36,7 @@ export default class LoginLayout extends Component {
 
   render() {
     async function submitForm() {
-      window.location.href = 'http://cms.etcmediasolutions.com';
+      window.location.href = 'http://localhost';
     }
 
     return (

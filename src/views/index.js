@@ -25,10 +25,13 @@ import Categories from './pages/Categories';
 import Login from './pages/Login';
 import Drivers from './pages/Drivers';
 import Products from './pages/Products';
+import Complements from './pages/Complements';
 import Orders from './pages/Orders';
 import Maps from './pages/Maps';
 import Banners from './pages/Banners';
 import Pushnotif from './pages/Pushnotif';
+import Promos from './pages/Promos';
+import Occasions from './pages/Occasions';
 
 
 // See React Router documentation for details: https://reacttraining.com/react-router/web/api/Route
@@ -63,6 +66,21 @@ const pageList = [
     name: 'Productos',
     path: '/pages/products',
     component: Products,
+  },
+  {
+    name: 'Complementos',
+    path: '/pages/complements',
+    component: Complements,
+  },
+  {
+    name: 'Promociones',
+    path: '/pages/promos',
+    component: Promos,
+  },
+  {
+    name: 'Ocaciones',
+    path: '/pages/occasions',
+    component: Occasions,
   },
   {
     name: 'Ordenes',

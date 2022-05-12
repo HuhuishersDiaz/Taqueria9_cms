@@ -6,6 +6,48 @@ export default {
       icon: 'Home',
     },
     {
+      name: 'Catalogos',
+      icon: 'Layers',
+      children: [
+        {
+          name: 'Categorias OK',
+          url: '/pages/categories',
+        },
+        {
+          name: 'Productos OK',
+          url: '/pages/products',
+        },
+        {
+          name: 'Complementos OK',
+          url: '/pages/complements',
+        },
+        {
+          name: 'Banners OK',
+          url: '/pages/banners',
+        },
+        
+        {
+          name: 'Promociones OK',
+          url: '/pages/promos',
+        },
+        {
+          name: 'Ocaciones OK',
+          url: '/pages/occasions',
+        },
+        {
+          name: 'Cupones',
+          url: '/pages/coupons',
+        },{
+          name: 'Notificaciones',
+          url: '/pages/pushnotif',
+        },
+        {
+          name: 'Sucursales',
+          url: '/pages/stores',
+        },
+      ],
+    },
+    /* {
       name: 'Categorias',
       url: '/pages/categories',
       icon: 'Layers',
@@ -29,26 +71,39 @@ export default {
       name: 'Perdidos',
       url: '/pages/orders',
       icon: 'Layers',
-    },
-    {
-      name: 'Repartidores',
-      url: '/pages/drivers',
-      icon: 'Layers',
-    },
+    },*/
 
     {
-      name: 'Mapa',
-      url: '/pages/maps',
+      name: 'Delivery',
       icon: 'Layers',
+      children: [
+        {
+          name: 'Repartidores',
+          url: '/pages/drivers',
+        },
+        {
+          name: 'Pedidos',
+          url: '/pages/orders',
+        },
+      ],
+    },
+    {
+      name: 'Configuracion',
+      icon: 'Layers',
+      children: [
+        {
+          name: 'Mapa',
+          url: '/pages/maps',
+        },
+        {
+          name: 'Usuarios',
+          url: '/pages/users',
+        },
+      ],
     },
     {
       name: 'Reportes',
       url: '/pages/reports',
-      icon: 'Layers',
-    },
-    {
-      name: 'Configuracion',
-      url: '/pages/settings',
       icon: 'Layers',
     },
     {
@@ -143,7 +198,7 @@ export default {
           name: 'Facturacion',
           url: '/apps/invoice',
         },
-     /*   {
+        /*   {
           name: 'Activity Feed',
           url: '/apps/feed',
         },

@@ -26,7 +26,7 @@ export default class Header extends Component {
         matchPath(this.props.location.pathname, {
           path: prop.path,
           exact: true,
-          strict: false
+          strict: false,
         })
       ) {
         name = prop.name;

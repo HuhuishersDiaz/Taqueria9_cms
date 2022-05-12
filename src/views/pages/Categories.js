@@ -18,41 +18,77 @@ import {
   FormText,
   Label,
   Input,
+  Alert,
 } from 'reactstrap';
 import Table from './widgets/Table';
 import axios from 'axios';
 
+const { REACT_APP_API_URL, REACT_APP_FILES_URL } = process.env;
+
 //const [categories,setCateg] = useState([]);
 
 const Categories = () => {
-  //onLoad();
-  const [code, setCode] = useState('');
-  const [name, setName] = useState('');
-  const [details, setDetails] = useState('');
-  const [upload, setUpload] = useState(false);
+  // onLoad();
+
+  const [dataCategory, setDataCategory] = useState({
+    _id: '',
+    code: '',
+    name: '',
+    details: '',
+    image: '',
+    status: false,
+    fileSelected: null,
+  });
+
+  const handleChange = e => {
+    const name = e.target.name;
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    setDataCategory({ ...dataCategory, [name]: value });
+    console.log(dataCategory);
+  };
+
   /* global File */
-  let file = File;
-  let img = 'image.png';
 
   const [show, setShow] = useState(false);
+
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = () => {
+    setDataCategory({
+      _id: '',
+      code: '',
+      name: '',
+      details: '',
+      image: '',
+      status: false,
+      fileSelected: null,
+    });
+    setShow(true);
+  };
   const [pics, setPic] = useState(false);
   const handlePics = () => setPic(true);
   const picsClose = () => setPic(false);
   const [urlPic, setUrl] = useState('');
+  //when data is load
   const [data, setData] = useState([]);
   const [dataSize, setDataSize] = useState(0);
   const [loadingData, setLoadingData] = useState(true);
 
+  //Agregamos este codigo  ADD
+
+  const [modEditshow, setmodEditshow] = useState(false);
+  const modEditClose = () => setmodEditshow(false);
+
   const showPicture = v => {
     console.log(v.value);
-    setUrl(v.value);
+    setUrl(REACT_APP_FILES_URL  + v.value);
     handlePics();
   };
 
-  const updateModal = v => {
-    console.log(v);
+  const updateModal = cell => {
+    let category = cell.row.original;
+    setDataCategory({ ...category, fileSelected: null });
+    setmodEditshow(true);
+    console.log(dataCategory);
   };
 
   // COLUMNS DATA TABLE
@@ -78,7 +114,7 @@ const Categories = () => {
       width: 50,
       Cell: ({ cell: { value } }) => (
         <img
-          src={'http://cms.etcmediasolutions.com/uploads/' + value}
+          src={REACT_APP_FILES_URL + value}
           alt={value}
           width={60}
           onClick={() => showPicture({ value })}
@@ -91,11 +127,16 @@ const Categories = () => {
       width: 80,
     },
     {
+      Header: 'Estatus',
+      accessor: d => (d.status == true ? 'Activo' : 'Inantivo'),
+      width: 80,
+    },
+    {
+      width: 80,
       Header: 'Acciones',
       accessor: 'actions',
-      width: 80,
-      Cell: ({ cell: { value } }) => (
-        <Button color="info" onClick={() => updateModal({ value })}>
+      Cell: ({ cell }) => (
+        <Button color="info" onClick={e => updateModal(cell)}>
           Editar
         </Button>
       ),
@@ -103,75 +144,205 @@ const Categories = () => {
   ]);
 
   useEffect(() => {
-    async function getData() {
-      await axios.get('http://cms.etcmediasolutions.com:3000/categories/all').then(res => {
-        setData(res.data);
-        console.log(res.data);
-        setDataSize(res.data.length);
-        setLoadingData(false);
-      });
-    }
     if (loadingData) {
       getData();
     }
   }, []);
 
-  function onFileChange(fileChangeEvent) {
-    file = fileChangeEvent.target.files[0];
-    //img = file.name;
+  const getData = async () => {
+    await axios.get(`${REACT_APP_API_URL}/categories/all`).then(res => {
+      setData(res.data);
+      console.log(res.data);
+      setDataSize(res.data.length);
+      setLoadingData(false);
+    });
+  };
+
+  function onFileChange(e) {
+    if (dataCategory._id != '') {
+      let res = window.confirm('¿Desea Actualizar la imagen de precentacióa?');
+      if (!res) {
+        e.target.value = '';
+        throw 'Operación Cancelada';
+      }
+    }
+    let file = e.target.files[0];
+    setDataCategory({ ...dataCategory, image: file.name, fileSelected: file });
   }
 
-  async function submitForm() {
+  async function submitSave(e) {
+    e.preventDefault();
     let formData = new FormData();
-    formData.append('photo', file, file.name);
+    formData.append('photo', dataCategory.fileSelected);
 
-    console.log(file);
-
-    axios
-      .all([
-        axios.post('http://cms.etcmediasolutions.com:3000/photos/upload', formData),
-        axios.post('http://cms.etcmediasolutions.com:3000/categories/create', {
-          code: code,
-          name: name,
-          details: details,
-          image: file.name,
-        }),
-      ])
-      .then(
-        axios.spread((data1, data2) => {
-          console.log('data1', data1, 'data2', data2);
-        })
-      );
-
-    /* global fetch*/
-
-    //method: "POST",
-    //  body: formData,
-    //  enctype: "multipart/form-data",
+    let statusImage = await axios.post(`${REACT_APP_API_URL}/photos/upload`, formData).then(c => c.data);
+    if (statusImage.OK) {
+      axios
+        .post(`${REACT_APP_API_URL}/categories/create`, dataCategory)
+        .then(c => c.data)
+        .then(c => {
+          if (c.OK) {
+            alert('Almacenado con éxito');
+            getData();
+            setShow(false);
+            setDataCategory({
+              code: '',
+              name: '',
+              details: '',
+              image: '',
+              status: false,
+              fileSelected: null,
+            });
+          } else {
+            alert(c.message);
+          }
+        });
+    } else {
+      alert(statusImage.message);
+    }
   }
 
+  async function submitEdit(e) {
+    e.preventDefault();
+
+    if (dataCategory.fileSelected != null) {
+      let formData = new FormData();
+      formData.append('photo', dataCategory.fileSelected);
+
+      let statusImage = await axios.post(`${REACT_APP_API_URL}/photos/upload`, formData).then(c => c.data);
+      if (!statusImage.OK) {
+        alert(statusImage.message);
+        throw 'Operacion cancelada';
+      }
+    }
+
+    let updateAction = await axios.put(`${REACT_APP_API_URL}/categories/update`, dataCategory).then(c => c.data);
+
+    if (updateAction.OK) {
+      alert('Informacion Actualizada con éxito');
+      setmodEditshow(false);
+      getData();
+    }
+  }
   return (
     <div>
       {/* Modal picture category*/}
       <Modal isOpen={pics} toggle={picsClose} style={{ width: 800, height: 500 }}>
         <ModalHeader style={{ backgroundColor: '#1d1594', color: '#ffffff' }}>Imagen Categoria</ModalHeader>
         <ModalBody style={{ alignSelf: 'center' }}>
-          <img style={{ padding: 10 }} src={'http://cms.etcmediasolutions.com/uploads/' + urlPic} />
+          <img style={{ padding: 10 }} src={urlPic} />
         </ModalBody>
-        <ModalFooter>
-          <Button color="primary">Cambiar Imagen</Button>
-          <Button color="danger" onClick={picsClose}>
-            Cerrar
-          </Button>
-        </ModalFooter>
       </Modal>
       {/* Modal picture category */}
+      {/* modal new category */}
+      <Modal isOpen={show} toggle={handleClose} modalTransition={{ timeout: 500 }}>
+        <ModalHeader>Datos de la nueva categoria</ModalHeader>
+        <ModalBody>
+          <Form onSubmit={submitSave}>
+            <FormGroup>
+              <Label for="code">Codigo</Label>
+              <Input
+                type="text"
+                name="code"
+                value={dataCategory.code || ''}
+                onChange={handleChange}
+                placeholder="codigo de la categoria"
+                required
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label for="name">Nombre</Label>
+              <Input
+                type="text"
+                value={dataCategory.name || ''}
+                name="name"
+                onChange={handleChange}
+                placeholder="nombre de la categoria"
+                required
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label for="details">Descripcion</Label>
+              <Input
+                type="textarea"
+                value={dataCategory.details || ''}
+                name="details"
+                onChange={handleChange}
+                required
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label for="categoryFile">Imagen</Label>
+              <Input type="file" accept=".jpg" onChange={ev => onFileChange(ev)} required />
+            </FormGroup>
+
+            <FormGroup check>
+              <Label for="details" check>
+                <Input type="checkbox" checked={dataCategory.status} name="status" onChange={handleChange} />
+                Estatus categoria
+              </Label>
+            </FormGroup>
+            <hr />
+            <Button color="warning">Guardar Informacion</Button>
+          </Form>
+        </ModalBody>
+      </Modal>
+      {/* modal new category */}
+      {/* modal edit category */}
+      <Modal isOpen={modEditshow} toggle={modEditClose} modalTransition={{ timeout: 500 }}>
+        <ModalHeader>Datos de la categoria</ModalHeader>
+        <ModalBody>
+          <Form onSubmit={submitEdit}>
+            <FormGroup>
+              <Label for="code">Codigo</Label>
+              <Input
+                type="text"
+                name="code"
+                value={dataCategory.code}
+                onChange={handleChange}
+                placeholder="codigo de la categoria"
+                required
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label for="name">Nombre</Label>
+              <Input
+                type="text"
+                value={dataCategory.name}
+                name="name"
+                onChange={handleChange}
+                placeholder="nombre de la categoria"
+                required
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label for="details">Descripcion</Label>
+              <Input type="textarea" value={dataCategory.details} name="details" onChange={handleChange} required />
+            </FormGroup>
+            <FormGroup>
+              <Label for="categoryFile">Imagen</Label>
+              <Input type="file" accept=".jpg" onChange={ev => onFileChange(ev)} />
+            </FormGroup>
+            <FormGroup check>
+              <Label for="details" check>
+                <Input type="checkbox" checked={dataCategory.status} name="status" onChange={handleChange} />
+                Estatus categoria
+              </Label>
+            </FormGroup>
+            <hr />
+            <Button color="warning">Actualizar Informacion</Button>
+          </Form>
+        </ModalBody>
+      </Modal>
+      {/* modal edit category */}
       <Card>
         <CardBody>
           <Row>
             <Col xs={4}>
               <Card>
-                <CardBody>Listado de Categorias</CardBody>
+                <CardBody>
+                  Listado de Categorias
+                </CardBody>
               </Card>
             </Col>
             <Col xs={4}>
@@ -185,51 +356,6 @@ const Categories = () => {
                   <Button color="primary" onClick={handleShow} block outline>
                     <i className="fa fa-plus-circle"></i>&nbsp;&nbsp;Nueva Categoria
                   </Button>
-
-                  <Modal isOpen={show} toggle={handleClose} modalTransition={{ timeout: 500 }}>
-                    <ModalHeader>Datos de la nueva categoria</ModalHeader>
-                    <ModalBody>
-                      <Form onSubmit={submitForm}>
-                        <FormGroup>
-                          <Label for="code">Codigo</Label>
-                          <Input
-                            type="text"
-                            name="code"
-                            id="code"
-                            value={code}
-                            onChange={e => setCode(e.target.value)}
-                            placeholder="codigo de la categoria"
-                          />
-                        </FormGroup>
-                        <FormGroup>
-                          <Label for="name">Nombre</Label>
-                          <Input
-                            type="text"
-                            name="name"
-                            id="name"
-                            value={name}
-                            onChange={e => setName(e.target.value)}
-                            placeholder="nombre de la categoria"
-                          />
-                        </FormGroup>
-                        <FormGroup>
-                          <Label for="details">Descripcion</Label>
-                          <Input
-                            type="textarea"
-                            name="details"
-                            id="details"
-                            value={details}
-                            onChange={e => setDetails(e.target.value)}
-                          />
-                        </FormGroup>
-                        <FormGroup>
-                          <Label for="categoryFile">Imagen</Label>
-                          <Input type="file" accept=".jpg" onChange={ev => onFileChange(ev)} />
-                        </FormGroup>
-                        <Button color="warning">Guardar Informacion</Button>
-                      </Form>
-                    </ModalBody>
-                  </Modal>
                 </CardBody>
               </Card>
             </Col>
