@@ -311,7 +311,7 @@ const Categories = () => {
               />
             </FormGroup>
             <FormGroup>
-              <Label for="details">Descripcion</Label>
+              <Label for="details">Descripción</Label>
               <Input type="textarea" value={dataCategory.details} name="details" onChange={handleChange} required />
             </FormGroup>
             <FormGroup>
